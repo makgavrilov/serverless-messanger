@@ -3,8 +3,8 @@ from pathlib import Path
 
 from fastapi import FastAPI
 
-from models.message_saver import MessageSaver
-from schemas.message import Message
+from .models.message_saver import MessageSaver
+from .schemas.message import Message
 
 app = FastAPI()
 
@@ -14,8 +14,8 @@ app = FastAPI()
 
 
 @app.post("/message")
-def give_message(message: Message) -> dict[str, t.Any]:
+def save_message(message: Message) -> dict[str, t.Any]:
     """..."""
     saver = MessageSaver(message)
-    saver.save()
+    saver.save_another_message()
     return {}
