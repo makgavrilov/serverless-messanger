@@ -19,3 +19,8 @@ def save_message(message: Message) -> dict[str, t.Any]:
     saver = MessageSaver(message)
     saver.save_another_message()
     return {}
+
+@app.get("/health")
+def health_check() -> str:
+    """..."""
+    return "OK"
