@@ -34,10 +34,11 @@ class MessageSaver:
             "text": self.message.text,
             "time_to_send": self.message.time_to_send,
             "time_to_receive": self.message.time_to_receive,
+            "status": self.message.status,
         }
         file_exists = self.filename.exists()
         with Path(self.filename).open(mode="a", newline="", encoding="utf-8") as file:
-            fieldnames = ["from", "to", "text", "time", "time_to_send", "time_to_receive"]
+            fieldnames = ["from", "to", "text", "time", "time_to_send", "time_to_receive", "status"]
             writer = csv.DictWriter(file, fieldnames=fieldnames)
             if not file_exists:
                 writer.writeheader()

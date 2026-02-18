@@ -1,4 +1,5 @@
 import datetime
+import typing as t
 
 from pydantic import BaseModel
 
@@ -11,3 +12,4 @@ class Message(BaseModel):
     text: str
     time_to_send: datetime.datetime | None = None
     time_to_receive: datetime.datetime | None = None
+    status: t.Literal["sent", "sending", "read", "not_sent"]
