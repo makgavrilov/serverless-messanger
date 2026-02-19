@@ -12,4 +12,4 @@ class Message(BaseModel):
     text: str
     time_to_send: datetime.datetime | None = None
     time_to_receive: datetime.datetime | None = None
-    status: t.Literal["sent", "sending", "read", "not_sent"]
+# XXX status: t.Literal["sent", "sending", "read", "not_sent", "received"]

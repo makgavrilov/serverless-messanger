@@ -24,3 +24,15 @@ def save_message(message: Message) -> dict[str, t.Any]:
 def health_check() -> str:
     """..."""
     return "OK"
+
+@app.post("/dialogue_opened")
+def dialogue_opened() -> dict[str, t.Any]:
+    """"..."""
+    # TODO: отметить отправленные мной сообщения как прочитанные (sent -> read). 
+    # TODO: отметить отправленные мной сообщения как прочитанные (sent -> read).
+    return {}
+
+    # TODO: multiline example
+    #   second line
+    #   third line
+    # TODO: qwerty
