@@ -1,15 +1,24 @@
 import datetime
 import typing as t
+import uuid
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+
+MessageStatus = t.Literal["not_sent", "sending", "received", "sent", "read"]
 
 
-class Message(BaseModel):
+class MessageCreate(BaseModel):
     """..."""
 
-    from_: str
+    from_: str = Field(...,alias="from")
     to: str
     text: str
-    time_to_send: datetime.datetime | None = None
-    time_to_receive: datetime.datetime | None = None
-# XXX status: t.Literal["sent", "sending", "read", "not_sent", "received"]
+    time_sent: datetime.datetime
+    uuid: uuid.UUID
+
+
+class Message(MessageCreate):
+    """..."""
+
+    time_receive: datetime.datetime = Field(default_factory=datetime.datetime.now)
+    status: MessageStatus
