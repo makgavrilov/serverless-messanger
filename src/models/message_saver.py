@@ -18,15 +18,13 @@ class MessageSaver:
 
     def save_my_message(self) -> None:
         """..."""
-        username = self.message_create.to
-        self._save_message(username, "sending")
+        self._save_message("sending")
 
     def save_another_message(self) -> None:
         """..."""
-        username = self.message_create.from_
-        self._save_message(username, "received")
+        self._save_message("received")
 
-    def _save_message(self, username: str, status: MessageStatus) -> None:
+    def _save_message(self, status: MessageStatus) -> None:
         """Сохранение сообщения.
 
         not_sent - response.status_code != 200 or timeout для POST /message
@@ -36,6 +34,6 @@ class MessageSaver:
         read - когда собеседник открыл чат и сообщил об этом.
         """
         message = Message(**self.message_create.model_dump(by_alias=True), status=status)
-        message_dump = message.model_dump(mode="json")
-        self.db.create_table_for_user(username)
-        self.db.save_message(username, message_dump)
+        message_dump = message.model_dump(mode="json",by_alias=True)
+        self.db.create_table_for_user()
+        self.db.save_message(message_dump)

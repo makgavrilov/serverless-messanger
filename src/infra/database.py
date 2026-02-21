@@ -13,12 +13,12 @@ class DataBase:
         """..."""
         self.connection = connection
 
-    def create_table_for_user(self, username: str) -> None:
+    def create_table_for_user(self) -> None:
         """..."""
         cursor = self.connection.cursor()
         cursor.execute(
-            f"""
-            CREATE TABLE IF NOT EXISTS {username} (
+            """
+            CREATE TABLE IF NOT EXISTS messages (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 "from" TEXT NOT NULL,
                 "to" TEXT NOT NULL,
@@ -32,23 +32,14 @@ class DataBase:
         )
         self.connection.commit()
 
-    def save_message(self, username: str, message: dict[str, t.Any]) -> None:
+    def save_message(self, message: dict[str, t.Any]) -> None:
         """..."""
         cursor = self.connection.cursor()
         cursor.execute(
-            f"""
-            INSERT INTO "{username}" ("from", "to", text, time_sent, time_received, status, uuid)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """
+            INSERT INTO messages ("from", "to", text, time_sent, time_received, status, uuid)
+            VALUES (:from, :to, :text, :time_sent, :time_receive, :status, :uuid)
         """,
-            (
-                message["from_"],
-                message["to"],
-                message["text"],
-                message["time_sent"],
-                message["time_receive"],
-                message["status"],
-                message["uuid"],
-            ),
+            message,
         )
-        # TODO: использовать именованные параметры
         self.connection.commit()
